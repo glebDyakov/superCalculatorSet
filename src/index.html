@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let url = "https://translate.api.cloud.yandex.net/translate/v2/translate";
+let res = fetch(url, {
+        method: 'POST',
+        body:'key=trnsl.1.1.20190419T144929Z.9a7ce55bcbc0ab3a.7b061e1931fe57955befd67ab7151772bed63f0f&lang=en-ru&text=hello',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            
+        })
+
+    }).then(ok=>console.log(ok.json()));
+    </script>
+</body>
+</html>
