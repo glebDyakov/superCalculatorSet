@@ -18,7 +18,6 @@
     <audio id="divide" src="../audio/divide.mp3"></audio>
     <audio id="equal" src="../audio/equal.mp3"></audio>
     <audio id="C" src="../audio/C.mp3"></audio>
-    
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -28,15 +27,14 @@
                 CalculatorSet
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item disabled" href="/" aria-disabled="true">Calculator</a></li>
-                <li><a class="dropdown-item" href="/engine">CalculatorEngine</a></li>
+                <li><a class="dropdown-item" href="/">Calculator</a></li>
+                <li><a class="dropdown-item disabled" href="/engine" aria-disabled="true">CalculatorEngine</a></li>
               </ul>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-
     <div class="calculator">
        <input v-model="enterFieldInput" class="form-control" id="enterfield" type="text"  placeholder="введите формулу" />
        <div class="calculatorrow">
@@ -63,7 +61,38 @@
         <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('/', 'divide')">/</div>
         <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('=', 'equal')">=</div>
         <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('C', 'C')">C</div>
-      </div>  
+      </div>
+      <div class="calculatorrow">
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('sin', 'equal')">sin</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('cos', 'equal')">cos</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('tan', 'C')">tan</div>
+      </div>
+      <div class="calculatorrow">
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('sinh', 'equal')">sinh</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('cosh', 'equal')">cosh</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('tanh', 'equal')">tanh</div>
+      </div>
+      <div class="calculatorrow">
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('PI', 'equal')">π</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('exp', 'equal')">exp</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('sqrt', 'equal')">√</div>
+      </div>
+      <div class="calculatorrow">
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('module', 'equal')">%</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('.', 'equal')">.</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('sqr', 'equal')">X²</div>
+      </div>
+      <div class="calculatorrow">
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('0', 'equal')">0</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('cube', 'equal')">X³</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('^', 'equal')">X²</div>
+      </div>
+      <div class="calculatorrow">
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('log', 'equal')">log</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('ln', 'equal')">ln</div>
+        <div class="calculatorcolumn btn btn-lg btn-outline-primary" @click="enterNumber('factorial', 'equal')">n!</div>
+      </div>
+      
     </div>
 
     <div class="soundOff" ref="soundImage" @click="onOffSound()">
@@ -73,7 +102,7 @@
 
 <script>
 export default {
-  name: 'Calculator',
+  name: 'EnginerCalculator',
   data:() => ({
     allowSound:true,
     enterFieldInput:''
@@ -90,11 +119,54 @@ export default {
     },
     enterNumber(numb, idAudio){ 
       try {
-        
         if(numb === 'C'){
           this.enterFieldInput = ''
-        }else if(numb === '='){
+        } else if(numb === '=' && this.enterFieldInput.includes("^")){
+          
+          let [fstNmb, SndNmb] = this.enterFieldInput.split('^')
+          console.log(fstNmb, SndNmb)
+          fstNmb = Number(fstNmb)
+          SndNmb = Number(SndNmb)
+          let srcNmb = fstNmb
+          let pwr = SndNmb - 1
+          for(let cntr = 0; cntr < srcNmb; cntr++){
+            fstNmb *= srcNmb
+          }
+          this.enterFieldInput = fstNmb
+        } else if(numb === '='){
           this.enterFieldInput = eval(this.enterFieldInput);
+        } else if(numb === 'sin'){
+          this.enterFieldInput = Math.sin(this.enterFieldInput);
+        } else if(numb === 'cos'){
+          this.enterFieldInput = Math.cos(this.enterFieldInput);
+        } else if(numb === 'tan'){
+          this.enterFieldInput = Math.tan(this.enterFieldInput);
+        } else if(numb === 'sinh'){
+          this.enterFieldInput = Math.sinh(this.enterFieldInput);
+        } else if(numb === 'cosh'){
+          this.enterFieldInput = Math.cosh(this.enterFieldInput);
+        } else if(numb === 'tanh'){
+          this.enterFieldInput = Math.tanh(this.enterFieldInput);
+        } else if(numb === 'sqrt'){
+          this.enterFieldInput = Math.sqrt(this.enterFieldInput);
+        } else if(numb === 'exp'){
+          this.enterFieldInput = Math.exp(this.enterFieldInput);
+        } else if(numb === 'PI'){
+          this.enterFieldInput = Math.PI  ;
+        } else if(numb === 'sqr'){
+          this.enterFieldInput *= this.enterFieldInput;
+        } else if(numb === 'cube'){
+          this.enterFieldInput = Math.pow(this.enterFieldInput, 3);
+        } else if(numb === 'ln'){
+          this.enterFieldInput = Math.log10(this.enterFieldInput);
+        } else if(numb === 'factorial'){
+          var factorial = function factorialis (m) {
+          var n = parseInt(m);
+          return (n < 0 || m != n) ? NaN : (n == 0 ? 1 : n * factorialis(n - 1));
+          }
+          this.enterFieldInput = factorial(this.enterFieldInput)
+        } else if(numb === 'log'){
+          this.enterFieldInput = Math.log(this.enterFieldInput);
         } else {
             this.enterFieldInput += String(numb);
           }
@@ -102,6 +174,7 @@ export default {
             this.playSound(idAudio);
           }
       } catch(e){
+        console.log(e)
         this.enterFieldInput = 'Неправильно введено';
       }
     },

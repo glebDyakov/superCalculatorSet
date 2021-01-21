@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Calculator from '@/views/Calculator.vue'
+import EnginerCalculator from '@/views/EnginerCalculator.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -8,6 +10,11 @@ const routes = [
     path: '/',
     name: 'Calculator',
     component: Calculator
+  },
+  {
+    path: '/engine',
+    name: 'EnginerCalculator',
+    component: EnginerCalculator
   },
   
 ]
